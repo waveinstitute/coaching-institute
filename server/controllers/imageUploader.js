@@ -5,9 +5,9 @@ const AppError = require('./../utils/appError');
 const cloudinary = require('cloudinary').v2;
 
 cloudinary.config({
-	cloud_name: 'dwyn6rbjh',
-	api_key: '719438478626195',
-	api_secret: 'cmqGti-n7d3g2fuV5DQaKmW3fnI',
+	cloud_name: process.env.CLOUD_NAME,
+	api_key: process.env.CLOUDINARY_API_KEY,
+	api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
 const storage = multer.diskStorage({
