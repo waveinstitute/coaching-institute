@@ -1,0 +1,184 @@
+/** @format */
+
+// this is api features page
+import axios from 'axios';
+import Cookies from 'js-cookie';
+
+const setHeader = function () {
+	const token = Cookies.get('jwt-token');
+	return {
+		'Authorization': `Bearer ${token}`,
+		'Content-Security-Policy': "default-src 'self'",
+		'X-Content-Type-Options': 'nosniff',
+		'X-Frame-Options': 'DENY',
+		'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload',
+	};
+};
+
+export const handleGetReq = async function (route) {
+	try {
+		const res = await axios.get(route, setHeader());
+		if (res.status === 200) return res.data;
+		else {
+			return {
+				status: 400,
+				message: `failed to get the data to ${route} route`,
+			};
+		}
+	} catch (err) {
+		if (err.response.status === 500)
+			return { status: 500, message: 'Server Is Down, Please try Later' };
+		return err.response.data;
+	}
+};
+
+export const handlePostReq = async function (route, data) {
+	try {
+		const res = await axios.post(route, data, setHeader());
+		if (res.status === 200 || res.status === 201) return res.data;
+		else
+			return {
+				status: 400,
+				message: `failed to post the data to ${route} route`,
+			};
+	} catch (err) {
+		console.log(err.response.data);
+		return err.response.data;
+	}
+};
+
+export const handlePatchReq = async function (route, data) {
+	try {
+		const res = await axios.patch(route, data, setHeader());
+		if (res.status === 200) return res.data;
+		else {
+			console.log({ res });
+			return {
+				status: 400,
+				message: `failed to patch the data to ${route} route`,
+			};
+		}
+	} catch (err) {
+		return err.response.data;
+	}
+};
+
+export const handleDeleteReq = async function (route) {
+	try {
+		const res = await axios.delete(route, setHeader());
+		if (res.status === 204) return { status: 'success' };
+		else
+			return {
+				status: 400,
+				message: `failed to delete the data to ${route} route`,
+			};
+	} catch (err) {
+		return err.response.data;
+	}
+};
+
+export const handleImageUpload = async function (file) {
+	const formData = new FormData();
+	formData.append('file', file);
+	try {
+		const res = await axios.post('/api/v1/upload', formData, setHeader());
+		if (res.status === 200)
+			return { status: 'success', data: res.data.data.res };
+		else
+			return {
+				status: 400,
+				message: `failed to upload the image`,
+			};
+	} catch (err) {
+		return err.response.data;
+	}
+};
+
+// auth based Routes
+export const login = async function (email, password) {
+	const route = '/api/v1/users/login';
+	const data = { email, password };
+	return await handlePostReq(route, data);
+};
+
+export const signup = async function (data) {
+	const route = '/api/v1/users/signup';
+	// const filteredData = {
+	// 	name: data.name,
+	// 	email: data.email,
+	// 	password: data.password,
+	// 	passwordConfirm: data.passwordConfirm,
+	// };
+	return await handlePostReq(route, data);
+};
+
+// GET REQ
+export const getUser = async function () {
+	const route = '/api/v1/users/me';
+	return await handleGetReq(route);
+};
+
+export const sendQuickPost = async function (formData) {
+	const route = '/api/v1/post';
+	const filteredData = {
+		name: formData.name,
+		description: formData.desc,
+		contact: formData.contact,
+		category: formData.category,
+		location: 'test',
+	};
+	return await handlePostReq(route, filteredData);
+};
+
+// GET REQ
+export const getQuickPost = async function () {
+	const route = '/api/v1/post';
+	return await handleGetReq(route);
+};
+
+export const postUpdate = async function (data) {
+	const route = `/api/v1/post/${data._id}`;
+	return await handlePatchReq(route, data);
+};
+
+export const postDelete = async function (data) {
+	const route = `/api/v1/post/${data._id}`;
+	return await handleDeleteReq(route);
+};
+
+// Course Route
+export const getCourse = async function () {
+	const route = '/api/v1/course';
+	return await handleGetReq(route);
+};
+
+export const postCourse = async function (data) {
+	const route = `/api/v1/course/`;
+	return await handlePostReq(route, data);
+};
+
+export const updateCourse = async function (data) {
+	const route = `/api/v1/course/${data._id}`;
+	return await handlePatchReq(route, data);
+};
+
+export const deleteCourse = async function (data) {
+	const route = `/api/v1/course/${data._id}`;
+	return await handleDeleteReq(route);
+};
+
+export const getAny = async function (route, id = '') {
+	if (id) {
+		const fullRoute = `${route}/${id}`;
+		return await handleGetReq(fullRoute);
+	} else {
+		return await handleGetReq(route);
+	}
+};
+
+// testimonials
+export const getTestimonial = async () =>
+	await handleGetReq('/api/v1/testimonial');
+
+export const deleteTestimonial = async (id) =>
+	await handleDeleteReq(`/api/v1/testimonial/${id}`);
