@@ -7,27 +7,6 @@ import { Brand } from './home/MiniComponent.jsx';
 import { useTitle } from './hooks/useTitle.js';
 import { getTestimonial } from './apiFeatures.js';
 
-// const initData = [
-// 	{
-// 		name: 'neet',
-// 		photo_pc: '/poster/poster1_pc.jpg',
-// 		photo_mob: '/poster/poster1_ph.jpg',
-// 		to: 'https://google.com',
-// 	},
-// 	{
-// 		name: 'jee',
-// 		photo_pc: '/poster/poster2_pc.jpg',
-// 		photo_mob: '/poster/poster2_ph.jpg',
-// 		to: 'https://google.com',
-// 	},
-// 	{
-// 		name: 'Foundations',
-// 		photo_pc: '/poster/poster3_pc.jpg',
-// 		photo_mob: 'poster/poster3_ph.jpg',
-// 		to: 'https://google.com',
-// 	},
-// ];
-
 function Item({ data }) {
 	const [screenSize, setScreenSize] = useState(window.innerWidth);
 
@@ -56,9 +35,11 @@ export default function App() {
 	useEffect(() => {
 		async function fetchData() {
 			const res = await getTestimonial();
-			setTestimonial(() => {
-				return res.data.data;
-			});
+			if (res.status == 'success') {
+				setTestimonial(() => {
+					return res.data.data;
+				});
+			}
 		}
 		fetchData();
 	}, []);

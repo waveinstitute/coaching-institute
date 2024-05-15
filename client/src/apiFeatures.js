@@ -4,6 +4,8 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
+const base = '';
+
 const setHeader = function () {
 	const token = Cookies.get('jwt-token');
 	return {
@@ -15,7 +17,8 @@ const setHeader = function () {
 	};
 };
 
-export const handleGetReq = async function (route) {
+export const handleGetReq = async function (suffixRoute) {
+	const route = base + suffixRoute;
 	try {
 		const res = await axios.get(route, setHeader());
 		if (res.status === 200) return res.data;
@@ -32,7 +35,8 @@ export const handleGetReq = async function (route) {
 	}
 };
 
-export const handlePostReq = async function (route, data) {
+export const handlePostReq = async function (suffixRoute, data) {
+	const route = base + suffixRoute;
 	try {
 		const res = await axios.post(route, data, setHeader());
 		if (res.status === 200 || res.status === 201) return res.data;
@@ -47,7 +51,8 @@ export const handlePostReq = async function (route, data) {
 	}
 };
 
-export const handlePatchReq = async function (route, data) {
+export const handlePatchReq = async function (suffixRoute, data) {
+	const route = base + suffixRoute;
 	try {
 		const res = await axios.patch(route, data, setHeader());
 		if (res.status === 200) return res.data;
@@ -63,7 +68,8 @@ export const handlePatchReq = async function (route, data) {
 	}
 };
 
-export const handleDeleteReq = async function (route) {
+export const handleDeleteReq = async function (suffixRoute) {
+	const route = base + suffixRoute;
 	try {
 		const res = await axios.delete(route, setHeader());
 		if (res.status === 204) return { status: 'success' };
@@ -96,20 +102,21 @@ export const handleImageUpload = async function (file) {
 
 // auth based Routes
 export const login = async function (email, password) {
-	const route = '/api/v1/users/login';
+	const route = base + '/api/v1/users/login';
 	const data = { email, password };
 	return await handlePostReq(route, data);
 };
 
 export const signup = async function (data) {
-	const route = '/api/v1/users/signup';
-	// const filteredData = {
-	// 	name: data.name,
-	// 	email: data.email,
-	// 	password: data.password,
-	// 	passwordConfirm: data.passwordConfirm,
-	// };
-	return await handlePostReq(route, data);
+	const route = base + '/api/v1/users/signup';
+	const filteredData = {
+		name: data.name,
+		email: data.email,
+		password: data.password,
+		passwordConfirm: data.passwordConfirm,
+		phone: data.phone,
+	};
+	return await handlePostReq(route, filteredData);
 };
 
 // GET REQ
@@ -117,35 +124,6 @@ export const getUser = async function () {
 	const route = '/api/v1/users/me';
 	return await handleGetReq(route);
 };
-
-export const sendQuickPost = async function (formData) {
-	const route = '/api/v1/post';
-	const filteredData = {
-		name: formData.name,
-		description: formData.desc,
-		contact: formData.contact,
-		category: formData.category,
-		location: 'test',
-	};
-	return await handlePostReq(route, filteredData);
-};
-
-// GET REQ
-export const getQuickPost = async function () {
-	const route = '/api/v1/post';
-	return await handleGetReq(route);
-};
-
-export const postUpdate = async function (data) {
-	const route = `/api/v1/post/${data._id}`;
-	return await handlePatchReq(route, data);
-};
-
-export const postDelete = async function (data) {
-	const route = `/api/v1/post/${data._id}`;
-	return await handleDeleteReq(route);
-};
-
 // Course Route
 export const getCourse = async function () {
 	const route = '/api/v1/course';
