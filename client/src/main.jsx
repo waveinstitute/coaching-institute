@@ -10,6 +10,8 @@ import CourseOverview from './component/CourseOverview.jsx';
 import CourseList from './component/CourseList.jsx';
 import Footer from './component/Footer.jsx';
 import { Contact } from './home/MiniComponent.jsx';
+import ContactUs from './component/ContactUs.jsx';
+import AboutUs from './component/AboutUs.jsx';
 
 import { useLocation } from 'react-router-dom';
 
@@ -53,6 +55,22 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 									<CourseList />
 									<Contact />
 									<Footer />
+								</>
+							}
+						/>
+						<Route
+							path='/contact'
+							element={
+								<>
+									<ContactUs />
+								</>
+							}
+						/>
+						<Route
+							path='/about'
+							element={
+								<>
+									<AboutUs />
 								</>
 							}
 						/>

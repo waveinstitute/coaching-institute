@@ -1,4 +1,5 @@
 /** @format */
+import { Link } from 'react-router-dom';
 
 import { Fragment, useState } from 'react';
 import { Dialog, Disclosure, Popover, Transition } from '@headlessui/react';
@@ -128,7 +129,7 @@ export default function Header() {
 					<Popover.Group className='hidden lg:flex lg:gap-x-12'>
 						<Popover className='relative'>
 							<Popover.Button className='flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900'>
-								Product
+								Features
 								<ChevronDownIcon
 									className='h-5 w-5 flex-none text-gray-400'
 									aria-hidden='true'
@@ -191,24 +192,24 @@ export default function Header() {
 							</Transition>
 						</Popover>
 
-						<a
-							href='#'
+						<Link
+							to='/contact'
 							className='text-sm font-semibold leading-6 text-gray-900'
 						>
-							Features
-						</a>
-						<a
-							href='#'
+							Contact us
+						</Link>
+						<Link
+							to='/about'
 							className='text-sm font-semibold leading-6 text-gray-900'
 						>
-							Marketplace
-						</a>
-						<a
-							href='#'
+							About us
+						</Link>
+						<Link
+							to='/course'
 							className='text-sm font-semibold leading-6 text-gray-900'
 						>
-							Company
-						</a>
+							Courses
+						</Link>
 					</Popover.Group>
 					<div className='hidden lg:flex lg:flex-1 lg:justify-end'>
 						{user.name ? (
@@ -314,12 +315,21 @@ export default function Header() {
 									</a>
 								</div>
 								<div className='py-6'>
-									<a
-										href='#'
-										className='-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50'
-									>
-										Log in
-									</a>
+									{user.name ? (
+										<div>
+											<Menu
+												userSrc={`${user?.photo}`}
+												onLogout={setSignedOut}
+											/>
+										</div>
+									) : (
+										<div>
+											<SignInform
+												onSetSnackbar={openSnackBar}
+												onSetUser={setUser}
+											/>
+										</div>
+									)}
 								</div>
 							</div>
 						</div>

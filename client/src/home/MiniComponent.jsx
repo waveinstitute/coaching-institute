@@ -269,7 +269,10 @@ function Testimonial() {
 	});
 	return (
 		<>
-			<div className='mx-auto max-w-screen-xl px-4 py-12 lg:px-8'>
+			<div
+				id='testimonials'
+				className='mx-auto max-w-screen-xl px-4 py-12 lg:px-8'
+			>
 				<div className='mt-8 sm:mt-12 bg-gray-50 rounded-lg text-gray-700 md:p-10 p-1 m-auto'>
 					{/* <div className="grid md:grid-cols-3 grid-cols-1 gap-10 md:text-base text-sm"> */}
 					<Carosoul
@@ -375,9 +378,11 @@ export function Contact() {
 				<div className='grid grid-cols-1 gap-x-16 gap-y-8 lg:grid-cols-5'>
 					<div className='lg:col-span-2 lg:py-12'>
 						<p className='max-w-xl text-lg'>
-							At the same time, the fact that we are wholly owned and totally
-							independent from manufacturer and other group control gives you
-							confidence that we will only recommend what is right for you.
+							Have questions or need more information? We&apos;re here to help!
+							Reach out to us at Wave for any inquiries about our programs,
+							schedules, or enrollment. Our team is ready to assist you on your
+							journey to academic success. Contact us today and let&apos;s start
+							the conversation!
 						</p>
 
 						<div className='mt-8'>
@@ -577,7 +582,10 @@ export function InstructorProfile() {
 	];
 	return (
 		<>
-			<div className='mx-auto max-w-screen-xl px-4 py-12 lg:px-8'>
+			<div
+				id='instructor'
+				className='mx-auto max-w-screen-xl px-4 py-12 lg:px-8'
+			>
 				<div className='mt-8 sm:mt-12 bg-gray-50 rounded-lg text-gray-700 md:p-10 p-1 m-auto'>
 					{/* <div className="grid md:grid-cols-3 grid-cols-1 gap-10 md:text-base text-sm"> */}
 					<Carosoul
@@ -598,14 +606,14 @@ export function InstructorProfile() {
 	);
 }
 
-function ProfileCard({ data }) {
+export function ProfileCard({ data }) {
 	return (
 		<div className='relative flex flex-col bg-clip-border rounded-xl bg-white text-gray-700 m-auto shadow-md w-full max-w-[48rem] sm:flex-row'>
 			<div className='relative w-full sm:w-2/5 m-0 overflow-hidden text-gray-700 bg-white rounded-r-none bg-clip-border rounded-xl shrink-0'>
 				<img
 					src={data.src}
 					alt='card-image'
-					className='object-cover w-full h-full'
+					className='object-cover w-full h-64 sm:h-80 md:h-96 m-auto'
 				/>
 			</div>
 			<div className='p-6'>
