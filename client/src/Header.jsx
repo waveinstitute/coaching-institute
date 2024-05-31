@@ -8,7 +8,6 @@ import {
 	Bars3Icon,
 	ChartPieIcon,
 	CursorArrowRaysIcon,
-	FingerPrintIcon,
 	SquaresPlusIcon,
 	XMarkIcon,
 } from '@heroicons/react/24/outline';
@@ -25,39 +24,31 @@ import Cookies from 'js-cookie';
 
 const products = [
 	{
-		name: 'Analytics',
-		description: 'Get a better understanding of your traffic',
+		name: 'Board Exam Preparation',
+		description:
+			'Comprehensive courses designed to help you excel in your board exams.',
 		href: '#',
-		icon: ChartPieIcon,
+		icon: ArrowPathIcon, // replace with the appropriate icon component
 	},
 	{
-		name: 'Engagement',
-		description: 'Speak directly to your customers',
+		name: 'JEE Mains Coaching',
+		description: 'Expert guidance and practice to ace your JEE Mains.',
 		href: '#',
-		icon: CursorArrowRaysIcon,
+		icon: ChartPieIcon, // replace with the appropriate icon component
 	},
 	{
-		name: 'Security',
-		description: 'Your customers’ data will be safe and secure',
+		name: 'Personalized Mentorship',
+		description: 'One-on-one mentorship to address your unique academic needs.',
 		href: '#',
-		icon: FingerPrintIcon,
+		icon: CursorArrowRaysIcon, // replace with the appropriate icon component
 	},
 	{
-		name: 'Integrations',
-		description: 'Connect with third-party tools',
+		name: 'Mock Tests & Assessments',
+		description:
+			'Regular mock tests to track progress and identify areas for improvement.',
 		href: '#',
-		icon: SquaresPlusIcon,
+		icon: SquaresPlusIcon, // replace with the appropriate icon component
 	},
-	{
-		name: 'Automations',
-		description: 'Build strategic funnels that will convert',
-		href: '#',
-		icon: ArrowPathIcon,
-	},
-];
-const callsToAction = [
-	{ name: 'Watch demo', href: '#', icon: PlayCircleIcon },
-	{ name: 'Contact sales', href: '#', icon: PhoneIcon },
 ];
 
 function classNames(...classes) {
@@ -91,6 +82,18 @@ export default function Header() {
 		Cookies.remove('jwt-token');
 		openSnackBar('You have signed out', 'success');
 	}
+	const callsToAction = [
+		{
+			name: 'View Courses',
+			to: '/course',
+			icon: PlayCircleIcon, // replace with the appropriate icon component
+		},
+		{
+			name: 'Contact Us',
+			to: '/contact',
+			icon: PhoneIcon, // replace with the appropriate icon component
+		},
+	];
 
 	return (
 		<>
@@ -154,7 +157,7 @@ export default function Header() {
 											>
 												<div className='flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white'>
 													<item.icon
-														className='h-6 w-6 text-gray-600 group-hover:text-indigo-600'
+														className='h-5 w-5 flex-none text-gray-400'
 														aria-hidden='true'
 													/>
 												</div>
@@ -175,9 +178,9 @@ export default function Header() {
 									</div>
 									<div className='grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50'>
 										{callsToAction.map((item) => (
-											<a
+											<Link
 												key={item.name}
-												href={item.href}
+												to={item.to}
 												className='flex items-center justify-center gap-x-2.5 p-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-100'
 											>
 												<item.icon
@@ -185,7 +188,7 @@ export default function Header() {
 													aria-hidden='true'
 												/>
 												{item.name}
-											</a>
+											</Link>
 										))}
 									</div>
 								</Popover.Panel>
@@ -238,8 +241,8 @@ export default function Header() {
 					<div className='fixed inset-0 z-10' />
 					<Dialog.Panel className='fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10'>
 						<div className='flex items-center justify-between'>
-							<a
-								href='#'
+							<Link
+								to='/'
 								className='-m-1.5 p-1.5'
 							>
 								<span className='sr-only'>wave</span>
@@ -248,7 +251,7 @@ export default function Header() {
 									src='/logo.png'
 									alt=''
 								/>
-							</a>
+							</Link>
 							<button
 								type='button'
 								className='-m-2.5 rounded-md p-2.5 text-gray-700'
@@ -285,7 +288,7 @@ export default function Header() {
 														<Disclosure.Button
 															key={item.name}
 															as='a'
-															href={item.href}
+															href={item.to}
 															className='block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50'
 														>
 															{item.name}
@@ -295,24 +298,26 @@ export default function Header() {
 											</>
 										)}
 									</Disclosure>
-									<a
-										href='#'
-										className='-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50'
-									>
-										Features
-									</a>
-									<a
-										href='#'
-										className='-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50'
-									>
-										Marketplace
-									</a>
-									<a
-										href='#'
-										className='-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50'
-									>
-										Company
-									</a>
+									<div className='flex flex-col gap-5'>
+										<Link
+											to='/contact'
+											className='text-sm font-semibold leading-6 text-gray-900'
+										>
+											Contact us
+										</Link>
+										<Link
+											to='/about'
+											className='text-sm font-semibold leading-6 text-gray-900'
+										>
+											About us
+										</Link>
+										<Link
+											to='/course'
+											className='text-sm font-semibold leading-6 text-gray-900'
+										>
+											Courses
+										</Link>
+									</div>
 								</div>
 								<div className='py-6'>
 									{user.name ? (

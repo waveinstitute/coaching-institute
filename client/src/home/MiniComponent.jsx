@@ -391,11 +391,11 @@ export function Contact() {
 								className='text-2xl font-bold text-pink-600'
 							>
 								{' '}
-								0151 475 4450{' '}
+								8318 015 051{' '}
 							</a>
 
 							<address className='mt-2 not-italic'>
-								282 Kevin Brook, Imogeneborough, CA 58517
+								Kalyanpur Kanput, Uttar pradash, PIN 208017
 							</address>
 						</div>
 					</div>

@@ -5,15 +5,30 @@ import { Typography, Button, Input } from '@material-tailwind/react';
 const LINKS = [
 	{
 		title: 'Company',
-		items: ['About Us', 'Careers', 'Premium Tools', 'Blog'],
+		items: [
+			{ name: 'About us', to: '/about' },
+			{ name: 'Contact us', to: '/contact' },
+			{ name: 'Join us', to: '/contact' },
+		],
 	},
 	{
 		title: 'Pages',
-		items: ['Login', 'Register', 'Add List', 'Contact'],
+		items: [
+			{ name: 'Courses', to: 'course' },
+			{ name: 'JEE', to: '/course/663639cc6e9a8379662db32c' },
+			{ name: 'NEET', to: '/course/6636ae2ab72e342b171f901c' },
+		],
 	},
 	{
-		title: 'Legal',
-		items: ['Terms', 'Privacy', 'Team', 'About Us'],
+		title: 'Social',
+		items: [
+			{ name: 'facebook', to: 'https://facebook.com' },
+			{ name: 'twitter', to: 'https://x.com/amitKha24659569' },
+			{
+				name: 'Linked in',
+				to: 'https://www.linkedin.com/in/wave-institute-b547ab310/',
+			},
+		],
 	},
 ];
 
@@ -34,14 +49,14 @@ export function Footer() {
 								>
 									{title}
 								</Typography>
-								{items.map((link) => (
-									<li key={link}>
+								{items.map(({ name, to }, i) => (
+									<li key={i}>
 										<Typography
 											as='a'
-											href='#'
+											href={to}
 											className='py-1 font-normal !text-gray-700 transition-colors hover:!text-gray-900'
 										>
-											{link}
+											{name}
 										</Typography>
 									</li>
 								))}
@@ -86,14 +101,9 @@ export function Footer() {
 					color='blue-gray'
 					className='md:text-center mt-16 font-normal !text-gray-700'
 				>
-					&copy; {CURRENT_YEAR} Made with ❤️{' '}
+					&copy; {CURRENT_YEAR} Made with ❤️ by{' '}
 					<a
-						href='https://www.material-tailwind.com'
-						target='_blank'
-					></a>{' '}
-					by{' '}
-					<a
-						href='https://www.creative-tim.com'
+						href='https://adarshsingh7.github.io/adizio'
 						target='_blank'
 					>
 						Adizio

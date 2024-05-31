@@ -21,7 +21,7 @@ export default function CourseList() {
 					<p className='text-purple-500 cursor-pointer'>
 						<Link to={'/'}>Home</Link> / Courses{' '}
 					</p>
-					<div className='grid grid-cols-3 gap-10 justify-between my-20'>
+					<div className='md:grid md:grid-cols-3 gap-10 justify-between my-20'>
 						{error && <h1 className='text-center text-red-500'>{error}</h1>}
 						{loading && (
 							<>
