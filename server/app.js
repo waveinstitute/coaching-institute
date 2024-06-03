@@ -18,6 +18,7 @@ const courseRouter = require('./routes/courseRoute');
 const testimonialRouter = require('./routes/testimonialRoute');
 const imageRouter = require('./routes/imageRoute');
 const emailRouter = require('./routes/emailRoute');
+const reviewRouter = require('./routes/reviewRoute');
 
 const cors = require('cors');
 
@@ -128,6 +129,7 @@ app.use('/api/v1/course', courseRouter);
 app.use('/api/v1/testimonial', testimonialRouter);
 app.use('/api/v1/upload', imageRouter);
 app.use('/api/v1/email', emailRouter);
+app.use('/api/v1/review', reviewRouter);
 
 app.all('*', (req, res, next) => {
 	next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
