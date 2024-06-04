@@ -10,7 +10,7 @@ import Footer from '../component/Footer.jsx';
 import { Link } from 'react-router-dom';
 import PostSkeleton from './../material/PostSkeleton';
 import { useGetCourses } from './../hooks/useGetData';
-import { handlePostReq } from '../apiFeatures.js';
+import { handlePostReq, handleGetReq } from '../apiFeatures.js';
 import { useSnackBar } from './../hooks/useSnackbar.js';
 import SnackBar from './../material/SnackBar.jsx';
 
@@ -264,9 +264,25 @@ export function Card({ data }) {
 
 function Testimonial() {
 	const [screenSize, setScreenSize] = useState(window.innerWidth);
+	const [reviews, setReviews] = useState([]);
 	window.addEventListener('resize', function () {
 		setScreenSize(window.innerWidth);
 	});
+
+	useEffect(() => {
+		async function getReviews() {
+			const data = await handleGetReq('/api/v1/review');
+			if (data.status === 'success')
+				setReviews(() => {
+					const reviews = data.data.data;
+					const activeReview = reviews.filter((review) => review.active);
+					return activeReview;
+				});
+			else setReviews(initTestimonial);
+		}
+		getReviews();
+	}, []);
+
 	return (
 		<>
 			<div
@@ -279,9 +295,9 @@ function Testimonial() {
 						items={screenSize > 700 ? 3 : 1}
 						dots={false}
 					>
-						{initTestimonial.map((testimonial, i) => (
+						{reviews.map((review, i) => (
 							<TestimonialCard
-								data={testimonial}
+								data={review}
 								key={i}
 							/>
 						))}
@@ -300,15 +316,17 @@ function TestimonialCard({ full = false, data }) {
 				<div className='flex gap-5'>
 					<div className='h-14 w-14 '>
 						<img
-							src={data.src}
+							src={data.user.photo}
 							className='rounded-full object-cover h-14 w-14'
-							alt={`${data.field} | ${data.name}`}
+							alt={`${data.field} | ${data.user.name}`}
 						/>
 					</div>
 					<div>
-						<h1 className='capitalize text-xl font-bold'>@{data.name}</h1>
+						<h1 className='capitalize text-xl font-bold'>
+							@{data.user.name.split(' ')[0]}
+						</h1>
 						<p className='text-gray-400 text-sm font-semibold'>
-							({data.field})
+							(⭐{data.rating} Rating)
 						</p>
 					</div>
 				</div>
@@ -318,7 +336,7 @@ function TestimonialCard({ full = false, data }) {
 						full ? '' : 'line-clamp-3'
 					} text-sm/relaxed text-gray-500`}
 				>
-					{data.text}
+					{data.review}
 				</p>
 				{!full && (
 					<Modal text='read more'>

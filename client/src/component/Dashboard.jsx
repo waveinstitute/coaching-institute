@@ -1,6 +1,7 @@
 /** @format */
 
 // import { useEffect, useState } from 'react';
+// ha ha REACT Router ki copy hai mujhe is time pe react Router nhi aata tha
 import { useTitle } from '../hooks/useTitle';
 import AboutMe from '../Dashboard/AboutUser';
 import { useGetUser } from '../hooks/useGetUser';
@@ -10,6 +11,8 @@ import Courses from './../Dashboard/Courses';
 import { Link } from 'react-router-dom';
 import Testimonial from './../Dashboard/Testimonials.jsx';
 import UserTable from './../Dashboard/UserTable.jsx';
+import CreateReview from '../Dashboard/CreateReview.jsx';
+import CheckReview from '../Dashboard/CheckReview.jsx';
 
 export default function Dashboard() {
 	const { to } = useParams();
@@ -27,6 +30,8 @@ export default function Dashboard() {
 						{to === 'overview' && <AboutMe user={user} />}
 						{to === 'testimonial' && <Testimonial />}
 						{to === 'users' && <UserTable />}
+						{to === 'createReview' && <CreateReview />}
+						{to === 'checkReview' && <CheckReview />}
 					</div>
 				</>
 			)}
@@ -81,14 +86,13 @@ const Sidebar = ({ user }) => {
 							icon='kanban'
 							text='My Courses'
 						></SidebarItem>
-						{/* <SidebarItem
-							icon='inbox'
-							text='Inbox'
-						>
-							<span className='inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300'>
-								3
-							</span>
-						</SidebarItem> */}
+						{!isAdmin && (
+							<SidebarItem
+								to='/dashboard/createReview'
+								icon='inbox'
+								text='Create Review'
+							></SidebarItem>
+						)}
 						{isAdmin && (
 							<>
 								<SidebarItem
@@ -105,6 +109,11 @@ const Sidebar = ({ user }) => {
 									to='/dashboard/testimonial'
 									icon='kanban'
 									text='Testimonial'
+								></SidebarItem>
+								<SidebarItem
+									to='/dashboard/checkReview'
+									icon='inbox'
+									text='Check Review'
 								></SidebarItem>
 							</>
 						)}
