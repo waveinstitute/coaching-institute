@@ -11,7 +11,10 @@ Router.route('/').get(reviewController.getMany);
 Router.use(authController.protect);
 
 // protected routes
-Router.route('/').post(reviewController.createReview);
+Router.route('/').post(
+	reviewController.selectUser,
+	reviewController.createReview
+);
 
 Router.route('/:id')
 	.get(reviewController.getOne)
