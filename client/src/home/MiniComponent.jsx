@@ -14,27 +14,6 @@ import { handlePostReq, handleGetReq } from '../apiFeatures.js';
 import { useSnackBar } from './../hooks/useSnackbar.js';
 import SnackBar from './../material/SnackBar.jsx';
 
-const initTestimonial = [
-	{
-		src: '/student/boy1.jpg',
-		name: 'rahul singh',
-		field: 'JEE Aspirant',
-		text: '"Wave has been a game-changer for me! The personalized attention from the faculty helped me grasp complex concepts easily. Thanks to their guidance, I aced my board exams with flying colors!"',
-	},
-	{
-		src: '/student/boy2.jpg',
-		name: 'raman yadav',
-		field: 'Boards Aspirant',
-		text: `"Wave turned my JEE dreams into reality! The institute's structured approach to learning, combined with regular doubt-clearing sessions, played a crucial role in my success. I couldn't have asked for a better coaching experience!"`,
-	},
-	{
-		src: '/student/boy3.jpg',
-		name: 'sandeep shukla',
-		field: 'JEE Aspirant',
-		text: `"Choosing Wave for my 11th-grade coaching was the best decision I made! The faculty members are not just teachers but mentors who go above and beyond to ensure every student understands the concepts thoroughly. I'm already feeling more prepared for the challenges ahead."`,
-	},
-];
-
 export function Brand() {
 	const el = useRef(null);
 
@@ -265,20 +244,22 @@ export function Card({ data }) {
 function Testimonial() {
 	const [screenSize, setScreenSize] = useState(window.innerWidth);
 	const [reviews, setReviews] = useState([]);
+	const [loading, setLoading] = useState(false);
 	window.addEventListener('resize', function () {
 		setScreenSize(window.innerWidth);
 	});
 
 	useEffect(() => {
 		async function getReviews() {
+			setLoading(true);
 			const data = await handleGetReq('/api/v1/review');
+			setLoading(false);
 			if (data.status === 'success')
 				setReviews(() => {
 					const reviews = data.data.data;
 					const activeReview = reviews.filter((review) => review.active);
 					return activeReview;
 				});
-			else setReviews(initTestimonial);
 		}
 		getReviews();
 	}, []);
@@ -290,18 +271,25 @@ function Testimonial() {
 				className='mx-auto max-w-screen-xl px-4 py-12 lg:px-8'
 			>
 				<div className='mt-8 sm:mt-12 bg-gray-50 rounded-lg text-gray-700 md:p-10 p-1 m-auto'>
+					<h1 className='text-2xl font-bold mx-auto mt-5 mb-12 text-gray-700'>
+						Here is why student ❤️ WAVE
+					</h1>
 					{/* <div className="grid md:grid-cols-3 grid-cols-1 gap-10 md:text-base text-sm"> */}
-					<Carosoul
-						items={screenSize > 700 ? 3 : 1}
-						dots={false}
-					>
-						{reviews.map((review, i) => (
-							<TestimonialCard
-								data={review}
-								key={i}
-							/>
-						))}
-					</Carosoul>
+					{loading && <div>loading...</div>}
+					{!loading && reviews && (
+						<Carosoul
+							items={screenSize > 700 ? 3 : 1}
+							dots={false}
+						>
+							{reviews.map((review, i) => (
+								<TestimonialCard
+									data={review}
+									key={i}
+								/>
+							))}
+						</Carosoul>
+					)}
+					{!loading && reviews.length === 0 && <div></div>}
 					{/* </div> */}
 				</div>
 			</div>

@@ -17,15 +17,18 @@ const DB = process.env.DATABASE.replace(
 	process.env.DATABASE_PASSWORD
 );
 const DBL = process.env.DATABASE_LOCAL;
+console.log(DB);
 
 mongoose
-	.connect(DBL, {
+	.connect(DB, {
 		useNewUrlParser: true,
 		useCreateIndex: true,
 		useFindAndModify: false,
 		useUnifiedTopology: true,
+		deprecationErrors: true,
 	})
-	.then(() => console.log('DB connection successful!'));
+	.then(() => console.log('DB connection successful!'))
+	.catch((err) => console.log('an error occoured', err.message));
 
 const port = process.env.PORT || 8080;
 const server = app.listen(port, () => {

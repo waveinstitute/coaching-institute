@@ -5,8 +5,6 @@ const AppError = require('./../utils/appError');
 const dotenv = require('dotenv');
 dotenv.config({ path: './../config.env' });
 
-console.log(process.env.EMAIL);
-
 const transporter = nodemailer.createTransport({
 	service: 'gmail',
 	host: 'smtp.gmail.com',
@@ -60,7 +58,7 @@ const customMail = function(content) {
 async function main(to, username, content) {
 	const info = transporter.sendMail(
 		{
-			from: '"Adarsh singh" <officialadarsh2021@gmial.com>', // sender address
+			from: '"Adarsh singh" <waveinstitute025@gmial.com>', // sender address
 			to, // list of receivers
 			subject: 'Whats up, check this out', // Subject line
 			text: content,
@@ -92,7 +90,7 @@ exports.signUpMail = catchAsync(async (req, res, next) => {
 exports.sendEnquiryMail = function(req, res, next) {
 	mailController(
 		'custom',
-		'officialadarsh2021@gmail.com',
+		'waveinstitute025@gmail.com',
 		'adarsh',
 		JSON.stringify(req.body)
 	);

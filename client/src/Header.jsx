@@ -104,8 +104,8 @@ export default function Header() {
 					aria-label='Global'
 				>
 					<div className='flex lg:flex-1'>
-						<a
-							href='#'
+						<Link
+							to='/'
 							className='-m-1.5 p-1.5'
 						>
 							<span className='sr-only'>Wave</span>
@@ -114,7 +114,7 @@ export default function Header() {
 								src='/logo.png'
 								alt=''
 							/>
-						</a>
+						</Link>
 					</div>
 					<div className='flex lg:hidden'>
 						<button
