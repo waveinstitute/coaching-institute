@@ -39,7 +39,7 @@ const promotionalMail = ({ username, content }) => {
 
 const signUpMailContent = `
 	<h3>You are successfully signup</h3>
-	<img width="400px" src="https://nova-live.imgix.net//What%20is%20Coaching-0c6b0d91-054a-46e8-af5f-0f723e1a67b6.png?" alt="">
+	<img width="400px" src="https://www.brainscape.com/academy/content/images/2022/02/Ultimate-study-guide-header.png" alt="">
 	<p>Thanks for signing up with us</p>
 	<p>explore different ways to use application :)</p>
 `;
@@ -58,7 +58,7 @@ const customMail = function(content) {
 async function main(to, username, content) {
 	const info = transporter.sendMail(
 		{
-			from: '"Adarsh singh" <waveinstitute025@gmial.com>', // sender address
+			from: '"AMIT | WAVE INSTITUTE" <waveinstitute025@gmial.com>', // sender address
 			to, // list of receivers
 			subject: 'Whats up, check this out', // Subject line
 			text: content,
@@ -91,8 +91,8 @@ exports.sendEnquiryMail = function(req, res, next) {
 	mailController(
 		'custom',
 		'waveinstitute025@gmail.com',
-		'adarsh',
-		JSON.stringify(req.body)
+		'Amit',
+		`You Got an ENQUIRY MESSAGE \n ${JSON.stringify(req.body)}`
 	);
 	res.status(200).json({ status: 'success', message: 'email send' });
 };

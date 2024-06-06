@@ -20,7 +20,7 @@ const DBL = process.env.DATABASE_LOCAL;
 console.log(DB);
 
 mongoose
-	.connect(DB, {
+	.connect(DBL, {
 		useNewUrlParser: true,
 		useCreateIndex: true,
 		useFindAndModify: false,
