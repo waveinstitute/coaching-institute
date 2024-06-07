@@ -18,7 +18,6 @@ export default function Dashboard() {
 	const { to } = useParams();
 	const { user, error } = useGetUser();
 	useTitle(`Dashboard`);
-	console.log(to);
 	return (
 		<div>
 			{error && <NotFound />}{' '}
