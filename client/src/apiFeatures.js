@@ -4,7 +4,7 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
-const base = '';
+const base = 'http://localhost:8000';
 
 const setHeader = function () {
 	const token = Cookies.get('jwt-token');
@@ -20,7 +20,9 @@ const setHeader = function () {
 export const handleGetReq = async function (suffixRoute) {
 	const route = base + suffixRoute;
 	try {
-		const res = await axios.get(route, setHeader());
+		const res = await axios.get(route, {
+			headers: setHeader(),
+		});
 		if (res.status === 200) return res.data;
 		else {
 			return {
@@ -38,7 +40,7 @@ export const handleGetReq = async function (suffixRoute) {
 export const handlePostReq = async function (suffixRoute, data) {
 	const route = base + suffixRoute;
 	try {
-		const res = await axios.post(route, data, setHeader());
+		const res = await axios.post(route, data, { headers: setHeader() });
 		if (res.status === 200 || res.status === 201) return res.data;
 		else
 			return {
@@ -54,7 +56,7 @@ export const handlePostReq = async function (suffixRoute, data) {
 export const handlePatchReq = async function (suffixRoute, data) {
 	const route = base + suffixRoute;
 	try {
-		const res = await axios.patch(route, data, setHeader());
+		const res = await axios.patch(route, data, { headers: setHeader() });
 		if (res.status === 200) return res.data;
 		else {
 			console.log({ res });
@@ -71,7 +73,7 @@ export const handlePatchReq = async function (suffixRoute, data) {
 export const handleDeleteReq = async function (suffixRoute) {
 	const route = base + suffixRoute;
 	try {
-		const res = await axios.delete(route, setHeader());
+		const res = await axios.delete(route, { headers: setHeader() });
 		if (res.status === 204) return { status: 'success' };
 		else
 			return {
@@ -87,7 +89,10 @@ export const handleImageUpload = async function (file) {
 	const formData = new FormData();
 	formData.append('file', file);
 	try {
-		const res = await axios.post('/api/v1/upload', formData, setHeader());
+		const route = base + '/api/v1/upload';
+		const res = await axios.post(route, formData, {
+			headers: setHeader(),
+		});
 		if (res.status === 200)
 			return { status: 'success', data: res.data.data.res };
 		else
@@ -102,13 +107,13 @@ export const handleImageUpload = async function (file) {
 
 // auth based Routes
 export const login = async function (email, password) {
-	const route = base + '/api/v1/users/login';
+	const route = '/api/v1/users/login';
 	const data = { email, password };
 	return await handlePostReq(route, data);
 };
 
 export const signup = async function (data) {
-	const route = base + '/api/v1/users/signup';
+	const route = '/api/v1/users/signup';
 	const filteredData = {
 		name: data.name,
 		email: data.email,
