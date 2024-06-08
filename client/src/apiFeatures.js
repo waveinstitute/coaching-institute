@@ -4,7 +4,8 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
-const base = 'https://orca-app-hv5fr.ondigitalocean.app';
+// const base = process.env.REACT_APP_BACKEND_API	;
+const base = import.meta.env.VITE_BACKEND_API;
 
 const setHeader = function () {
 	const token = Cookies.get('jwt-token');
