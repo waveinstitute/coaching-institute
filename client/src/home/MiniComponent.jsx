@@ -558,7 +558,7 @@ export function Contact() {
 export function InstructorProfile() {
 	const instructors = [
 		{
-			name: 'prach khare',
+			name: 'prachi khare',
 			desc: `Prachi Khare is renowned as one of the best NEET and JEE chemistry
 	teachers, recognized for her exceptional teaching skills and
 	dedication to her students success. With her comprehensive knowledge
