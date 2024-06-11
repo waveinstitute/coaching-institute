@@ -614,12 +614,41 @@ export function InstructorProfile() {
 
 export function ProfileCard({ data }) {
 	return (
-		<div className='relative flex flex-col bg-clip-border rounded-xl bg-white text-gray-700 m-auto shadow-md w-full max-w-[48rem] sm:flex-row'>
+		// <div className='relative flex flex-col bg-clip-border rounded-xl bg-white text-gray-700 m-auto shadow-md w-full max-w-[48rem] sm:flex-row'>
+		// 	<div className='relative w-full sm:w-2/5 m-0 overflow-hidden text-gray-700 bg-white rounded-r-none bg-clip-border rounded-xl shrink-0'>
+		// 		<img
+		// 			src={data.src}
+		// 			alt='card-image'
+		// 			className='object-cover w-full h-64 sm:h-80 md:h-96 m-auto'
+		// 		/>
+		// 	</div>
+		// 	<div className='p-6'>
+		// 		<h6 className='block mb-4 font-sans text-base antialiased font-semibold leading-relaxed tracking-normal text-gray-700 uppercase'>
+		// 			Instructor
+		// 		</h6>
+		// 		<h4 className='block mb-2 font-sans text-2xl antialiased font-semibold leading-snug tracking-normal text-blue-gray-900 capitalize'>
+		// 			{data.name} ({data.subject} Expert)
+		// 		</h4>
+		// 		<p className='line-clamp-5 mb-8 font-sans text-base antialiased font-normal leading-relaxed text-gray-700'>
+		// 			{data.desc}
+		// 		</p>
+		// 		<div className='inline-block'>
+		// 			<button
+		// 				className='flex items-center gap-2 px-6 py-3 font-sans text-xs font-bold text-center text-gray-900 uppercase align-middle transition-all rounded-lg select-none disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none hover:bg-gray-900/10 active:bg-gray-900/20'
+		// 				type='button'
+		// 			>
+		// 				<Star /> <span className='whitespace-nowrap'>5 Star faculty</span>
+		// 			</button>
+		// 		</div>
+		// 	</div>
+		// </div>
+		<div className='relative flex flex-col sm:flex-row bg-clip-border rounded-xl bg-white text-gray-700 m-auto shadow-md w-full max-w-[48rem]'>
 			<div className='relative w-full sm:w-2/5 m-0 overflow-hidden text-gray-700 bg-white rounded-r-none bg-clip-border rounded-xl shrink-0'>
 				<img
 					src={data.src}
 					alt='card-image'
-					className='object-cover w-full h-64 sm:h-80 md:h-96 m-auto'
+					className='object-cover w-full h-full sm:h-auto sm:w-auto'
+					style={{ aspectRatio: '1 / 1' }} // Ensuring the image maintains a square aspect ratio
 				/>
 			</div>
 			<div className='p-6'>
