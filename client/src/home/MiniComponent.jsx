@@ -643,11 +643,11 @@ export function ProfileCard({ data }) {
 		// 	</div>
 		// </div>
 		<div className='relative flex flex-col sm:flex-row bg-clip-border rounded-xl bg-white text-gray-700 m-auto shadow-md w-full max-w-[48rem]'>
-			<div className='relative w-full sm:w-2/5 m-0 overflow-hidden text-gray-700 bg-white rounded-r-none bg-clip-border rounded-xl shrink-0'>
+			<div className='relative w-full sm:w-2/5 m-0 overflow-hidden text-gray-700 bg-white rounded-r-none bg-clip-border rounded-xl shrink-0 my-auto'>
 				<img
 					src={data.src}
 					alt='card-image'
-					className='object-cover w-full h-full sm:h-auto sm:w-auto'
+					className='object-cover w-full h-full sm:h-auto sm:w-auto my-auto'
 					style={{ aspectRatio: '1 / 1' }} // Ensuring the image maintains a square aspect ratio
 				/>
 			</div>
