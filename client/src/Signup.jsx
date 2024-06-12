@@ -199,6 +199,13 @@ function FormInput({ name, type, icon, value, onValue }) {
 function FormFooter({ type, onType, onLogin, isLoading = false }) {
 	return (
 		<div className='flex items-center justify-between'>
+			<button
+				type='submit'
+				onClick={onLogin}
+				className='inline-block rounded-lg capitalize bg-blue-500 px-5 py-3 text-sm font-medium text-white'
+			>
+				{type === 'login' ? 'Log in' : 'sign up'}
+			</button>
 			<p className='text-sm text-gray-500'>
 				{type === 'login' ? 'No account?' : 'Already have an account?'}
 				<button
@@ -213,14 +220,6 @@ function FormFooter({ type, onType, onLogin, isLoading = false }) {
 			</p>
 
 			{isLoading && <CircularProgress />}
-
-			<button
-				type='submit'
-				onClick={onLogin}
-				className='inline-block rounded-lg capitalize bg-blue-500 px-5 py-3 text-sm font-medium text-white'
-			>
-				{type === 'login' ? 'Log in' : 'sign up'}
-			</button>
 		</div>
 	);
 }

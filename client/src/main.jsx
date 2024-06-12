@@ -14,6 +14,8 @@ import ContactUs from './component/ContactUs.jsx';
 import AboutUs from './component/AboutUs.jsx';
 
 import { useLocation } from 'react-router-dom';
+console.log(import.meta.env); // "123"
+console.log(import.meta.env.DB_PASSWORD); // undefined
 
 const ScrollToTop = ({ children }) => {
 	const location = useLocation();
